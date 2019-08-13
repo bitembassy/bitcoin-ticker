@@ -26,9 +26,9 @@ getlastcommit=function(cb) /// doesnot calls cb on error or on update not requir
 var options = {
   hostname: 'api.github.com',
   port: 443,
-  path: '/repos/shimondoodkin/bitcoin-ticker/commits?page=1&per_page=1',
+  path: '/repos/bitembassy/bitcoin-ticker/commits?page=1&per_page=1',
   method: 'GET',
-  headers: {'User-Agent': 'check repo updated by @shimondoodkin'}
+  headers: {'User-Agent': 'check repo updated by @bitembassy'}
 };
 if(fs.existsSync(__dirname+'/selfupdate_lastmodified_etag.txt')) options.headers['If-None-Match']=fs.readFileSync(__dirname+'/selfupdate_lastmodified_etag.txt')
 
@@ -43,7 +43,7 @@ var req = https.request(options, function(res) {
   });
   res.on('end', function() {
    if(res.statusCode!=200) return cb(false);
-   /*  
+   /*
   [{"sha": "ef4ed7ae7f442fc83e76931a11bfbc551ec5afe1"
     "commit": {
       "author": {
@@ -57,7 +57,7 @@ var req = https.request(options, function(res) {
       "url": "https://api.github.com/repos/shimondoodkin/nodejs-clone-extend/git/commits/ef4ed7ae7f442fc83e76931a11bfbc551ec5afe1",
       "comment_count": 0
     },
-    "url": 
+    "url":
  */
    if(cb)cb(JSON.parse(data));
    //process.stdout.write(JSON.parse(data)[0].commit.committer.date);
@@ -154,12 +154,12 @@ killmyapp=function(cb)// this function should be tested
      var linesfiltered=lines.filter(function(a){return a.indexOf('grep')==-1})// remove myself
      var cols=linesfiltered.map(function(a){return a.split(/\s\s+/)})//split by cols
      var onlyids=cols.map(function(a){return a[1]})
-    
+
      var i=0,l=onlyids.length;
      function loop(){ // simple async loop
       console.log('killing: ',linesfiltered[i])
         try{process.kill(onlyids[i], 'SIGTERM');} catch(e){}
-      i++; 
+      i++;
       if(i<l) {setTimeout(loop,500); } else cb();
      }
      if(i<l)loop(); else cb();
@@ -186,7 +186,7 @@ myappexists=function(cb)// this function should be tested
      var linesfiltered=lines.filter(function(a){return a.indexOf('grep')==-1})// remove myself
      var cols=linesfiltered.map(function(a){return a.split(/\s\s+/)})//split by cols
      var onlyids=cols.map(function(a){return a[1]})
-    
+
      cb(onlyids.length>0);
 
     if (error !== null) {
@@ -214,7 +214,7 @@ getlastcommit(function(data){
      console.log("local hash: '"+hash+"'"," remote hash:'"+data[0].sha+"'");
     else
      console.log("no hash returned, not http 200 result");
-	 
+
 	if(data!==false&&hash!=data[0].sha)
     {
       console.log("will update");
