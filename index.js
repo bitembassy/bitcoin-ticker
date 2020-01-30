@@ -18,7 +18,7 @@ process.on('uncaughtException', function(err) {
 rates={
  dollar: 3.5 ,// ["USDILS=X",0,"1/1/2000","0:00pm"],
  euro:["EURILS=X",0,"1/1/2000","0:00pm"],
- bitsofgold: {"btc_spot":{"ILS":0,"EUR":0,"USD":0},"buy_btc":{"ILS":0,"USD":0,"EUR":0},"sell_btc":{"ILS":0,"USD":0,"EUR":0}},
+ bitsofgold: {"btc_spot":{"ILS":0,"EUR":0,"USD":0}},
  bit2c: {"amount":0,"total":0,"av_price":0,"min_price":0,"max_price":0},
  bitgo: {"currentSellingPrice":0,"currentBuyingPrice":0,"amountAvalibleForSale":"0","amountAvalibleForBuy":0},
  bitcoinaverageUSD: { "24h_avg": 0, "ask": 0, "bid": 0, "last": 0, "timestamp": "Sun, 1 Jan 2000 00:00:00 -0000", "volume_btc": 0, "volume_percent": 0 },
@@ -197,7 +197,7 @@ ratestext=function()
   
   var p=3;
   var text2=''
-  if(rates.bitsofgold.buy_btc.ILS) text2+=     'Bits of Gold '+(rates.bitsofgold.buy_btc.ILS/1000).formatMoney(p, '.', ',')+'  '
+  if(rates.bitsofgold.ILS) text2+=     'Bits of Gold '+(rates.bitsofgold.ILS/1000).formatMoney(p, '.', ',')+'  '
   if(rates.bit2c.av_price) text2+=     'Bit2c '+(rates.bit2c.av_price/1000).formatMoney(p, '.', ',')+'  '
 //  if(rates.bitgo.currentSellingPrice) text2+=     'BitGo '+(rates.bitgo.currentSellingPrice/1000).formatMoney(p, '.', ',')+'  '
 //  if(rates.bitcoinaverageUSD.ask) text2+=     'BitcoinAverage '+(rates.bitcoinaverageUSD.ask*rates.dollar/1000).formatMoney(p, '.', ',')+'  '
