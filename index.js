@@ -5,12 +5,12 @@ var fs = require('fs');
 var rest = require('restler');
 var async = require('async');
 
-var e=require('./email')
+// var e=require('./email')
 
 process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' , err.stack);
 
-  sendemaillog('index.js uncaughtException', err.stack);
+  // sendemaillog('index.js uncaughtException', err.stack);
 
   //process.exit(3);
 });
