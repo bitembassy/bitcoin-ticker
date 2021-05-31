@@ -801,7 +801,7 @@ serialPort.list(function (err, ports)
  ports.forEach(function(port)
  {
   console.log(port);
-  if(port.pnpId.indexOf('Prolific')!=-1||port.manufacturer.indexOf('Prolific')!=-1)
+  if((port.pnpId && port.pnpId.indexOf('Prolific')!=-1) || (port.manufacturer && port.manufacturer.indexOf('Prolific')!=-1))
   {
    have=true
    if(exports.serial) exports.serial.close();
