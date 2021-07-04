@@ -23,6 +23,7 @@ rates={
  bitgo: {"currentSellingPrice":0,"currentBuyingPrice":0,"amountAvalibleForSale":"0","amountAvalibleForBuy":0},
  bitcoinaverageUSD: { "24h_avg": 0, "ask": 0, "bid": 0, "last": 0, "timestamp": "Sun, 1 Jan 2000 00:00:00 -0000", "volume_btc": 0, "volume_percent": 0 },
  bitcoinaverageEUR: { "24h_avg": 0, "ask": 0, "bid": 0, "last": 0, "timestamp": "Sun, 1 Jan 2000 00:00:00 -0000", "volume_btc": 0, "volume_percent": 0 },
+ bitcoinaverageILS: { "24h_avg": 0, "ask": 0, "bid": 0, "last": 0, "timestamp": "Sun, 1 Jan 2000 00:00:00 -0000", "volume_btc": 0, "volume_percent": 0 },
  bitstamp: {"high": "0", "last": "0", "timestamp": "0", "bid": "0", "vwap": "0", "volume": "0", "low": "0", "ask": "0"},
  btce:     {"ticker":{"high":0,"low":0,"avg":0,"vol":0,"vol_cur":0,"last":0,"buy":0,"sell":0,"updated":0,"server_time":0}},
  bitpay: [{"code":"USD","name":"US Dollar","rate":0},{"code":"ILS","name":"Israeli Shekel","rate":0}]
@@ -45,14 +46,14 @@ update=function(cb)
  [
 
 
-   function(cb){cb=cbguard(cb);try{ rest.get("https://www.investing.com/common/modules/js_instrument_chart/api/data.php?pair_id=63&pair_id_for_news=63&chart_type=area&pair_interval=60&candle_count=120&events=yes&volume_series=yes&period=https://www.investing.com/common/modules/js_instrument_chart/api/data.php?pair_id=63&pair_id_for_news=63&chart_type=area&pair_interval=60&candle_count=120&events=yes&volume_series=yes&period=",{ rejectUnauthorized:false, headers:{ 'Accept-Encoding':'gzip, deflate', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Referer': 'https://www.investing.com/currencies/usd-ils', 'X-Requested-With': 'XMLHttpRequest' } }).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} data=JSON.parse(data); if(typeof data=='object' && data!==null) rates.dollar=data.candles[data.candles.length-1][1]; cb(); });  } catch(e){console.log(e.stack);cb();} }
+   //function(cb){cb=cbguard(cb);try{ rest.get("https://www.investing.com/common/modules/js_instrument_chart/api/data.php?pair_id=63&pair_id_for_news=63&chart_type=area&pair_interval=60&candle_count=120&events=yes&volume_series=yes&period=https://www.investing.com/common/modules/js_instrument_chart/api/data.php?pair_id=63&pair_id_for_news=63&chart_type=area&pair_interval=60&candle_count=120&events=yes&volume_series=yes&period=",{ rejectUnauthorized:false, headers:{ 'Accept-Encoding':'gzip, deflate', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36', 'Referer': 'https://www.investing.com/currencies/usd-ils', 'X-Requested-With': 'XMLHttpRequest' } }).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} data=JSON.parse(data); if(typeof data=='object' && data!==null) rates.dollar=data.candles[data.candles.length-1][1]; cb(); });  } catch(e){console.log(e.stack);cb();} }
  // function(cb){cb=cbguard(cb);try{ rest.get('https://www.bloomberg.com/markets/watchlist/recent-tickers/data/USDILS:CUR').on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null)rates.dollar=data.tickers[0].last_price; cb(); });  } catch(e){console.log(e.stack);cb();} }
 //   function(cb){cb=cbguard(cb);try{ rest.get('http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f=sl1d1t1&s=USDILS=X').on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();}  try{data=JSON.parse("["+data.trim().replace(/""/,"\\\"")+']');} catch(e){console.log(e.stack)} if(typeof data=='object' && data!==null)rates.dollar=data; cb(); });  } catch(e){console.log(e.stack);cb();} }
 //  ,function(cb){cb=cbguard(cb);try{ rest.get('http://download.finance.yahoo.com/d/quotes.csv?e=.csv&f=sl1d1t1&s=EURILS=X').on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();}  try{data=JSON.parse("["+data.trim().replace(/""/,"\\\"")+']');} catch(e){console.log(e.stack)} if(typeof data=='object' && data!==null)rates.euro=data; cb(); });  } catch(e){console.log(e.stack);cb();} }
-  ,function(cb){cb=cbguard(cb);try{ rest.get("https://webapi.bitsofgold.co.il/v1/rates",{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} data=JSON.parse(data);if(typeof data=='object' && data!==null) rates.bitsofgold=data; cb();  });  } catch(e){console.log(e.stack);cb();} }
-  ,function(cb){cb=cbguard(cb);try{ rest.get("https://bit2c.co.il/Exchanges/BtcNis/Ticker.json",{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) rates.bit2c=data; cb();  });  } catch(e){console.log(e.stack);cb();} }
+  // ,function(cb){cb=cbguard(cb);try{ rest.get("https://webapi.bitsofgold.co.il/v1/rates",{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} data=JSON.parse(data);if(typeof data=='object' && data!==null) rates.bitsofgold=data; cb();  });  } catch(e){console.log(e.stack);cb();} }
+  function(cb){cb=cbguard(cb);try{ rest.get("https://bit2c.co.il/Exchanges/BtcNis/Ticker.json",{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) rates.bit2c=data; cb();  });  } catch(e){console.log(e.stack);cb();} }
 //  ,function(cb){cb=cbguard(cb);try{ rest.get('https://www.bitgo.co.il/components/loadcontrol.aspx?cn=statspanel&json=true',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();}  if(typeof data=='object' && data!==null)  rates.bitgo=data; cb(); });  } catch(e){console.log(e.stack);cb();} }
-  ,function(cb){cb=cbguard(cb);try{ rest.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) rates.bitcoinaverageUSD=data;  }); cb(); } catch(e){console.log(e.stack);cb();} }
+  ,function(cb){cb=cbguard(cb);try{ rest.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCILS',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) rates.bitcoinaverageILS=data;  }); cb(); } catch(e){console.log(e.stack);cb();} }
 //  ,function(cb){cb=cbguard(cb);try{ rest.get('https://api.bitcoinaverage.com/ticker/global/EUR/',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) rates.bitcoinaverageEUR=data;  }); cb();  } catch(e){console.log(e.stack);cb();} }
 //  ,function(cb){cb=cbguard(cb);try{ rest.get('https://www.bitstamp.net/api/ticker/',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} if(typeof data=='object' && data!==null) Object.keys(data).forEach(function(a){data[a]=parseFloat(data[a])}); rates.bitstamp=data; cb(); });  } catch(e){console.log(e.stack);cb();} }
 //  ,function(cb){cb=cbguard(cb);try{ rest.get('https://btc-e.com/api/2/btc_usd/ticker',{rejectUnauthorized:false}).on('complete', function(data) { if(data instanceof Error){console.log(data.stack);return cb();} try{data=JSON.parse(data);} catch(e){console.log(e.stack)} if(typeof data=='object' && data!==null) rates.btce=data;  }); cb(); } catch(e){console.log(e.stack);cb();} }
@@ -80,7 +81,7 @@ update=function(cb)
  )//parallel
 }
 
-var Canvas = require((require('os').arch()=='arm'?'./arm_node_modules/':(process.platform=='win32'?'./win_node_modules/':''))+'canvas')
+var Canvas = require('canvas')
   , Font = Canvas.Font
   , mcanvas = new Canvas(20,20)
   , mctx = mcanvas.getContext('2d');
@@ -193,7 +194,7 @@ ratestext=function()
 {
   var p=3;
   var text1='Bitcoin'
-  if(rates.bitcoinaverageUSD.ask) text1='mBTC/ILS '+((rates.bitcoinaverageUSD.ask*rates.dollar)/1000).formatMoney(p, '.', ',')//+'  '
+  if(rates.bitcoinaverageILS.ask) text1='mBTC/ILS '+(rates.bitcoinaverageILS.ask/1000).formatMoney(p, '.', ',')//+'  '
   
   var p=3;
   var text2=''
